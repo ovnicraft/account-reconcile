@@ -9,11 +9,9 @@
     "license": "AGPL-3",
     "category": "Accounting and Financial Management",
     "author": "NovaPoint Group LLC, Open Source Integrators, "
-              "Odoo Community Association (OCA)",
+    "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/account-reconcile",
-    "depends": [
-        "account_voucher",
-    ],
+    "depends": ["account_voucher"],
     "data": [
         "security/account_banking_reconciliation.xml",
         "security/ir.model.access.csv",
@@ -21,7 +19,9 @@
         "views/account_move_line.xml",
         "report/bank_statement_report.xml",
         "views/report_bank_statement_summary.xml",
-        "views/report_bank_statement_detail.xml"],
+        "views/report_bank_statement_detail.xml",
+        "views/report_bank_statement_uncleared.xml",
+    ],
     "demo": [],
     "installable": True,
 }

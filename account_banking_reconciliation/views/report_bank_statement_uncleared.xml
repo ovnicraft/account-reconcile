@@ -1,0 +1,85 @@
+<odoo>
+    <template id="report_bank_statement_uncleared">
+        <t t-call="report.html_container">
+            <t t-call="report.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <h2 style="text-align:center;">
+                            CONCILIACIÓN BANCARIA
+                        </h2>
+                        <div class="row">
+                            <table class="table">
+                                <tr>
+                                    <td><strong>CUENTA:</strong></td>
+                                    <td><t t-esc="o.account_id.code"/> - <t t-esc="o.account_id.name"/></td>
+                                    <td><strong>FECHA:</strong></td>
+                                    <td><t t-esc="o.ending_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>BALANCE INICIAL:</strong></td>
+                                    <td> <span t-field="o.starting_balance"/></td>
+                                    <td><strong>BALANCE CIERRE:</strong></td>
+                                    <td><span t-field="o.ending_balance"/></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>BALANCE CONCILIADO:</strong>
+                                    </td>
+                                    <td> <span t-field="o.cleared_balance"/> </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>BALANCE NO CONCILIADO:</strong>
+                                    </td>
+                                    <td> <span t-field="o.uncleared_balance"/> </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr><span style="font-style: italic;">Los balances son respecto al estado de cuenta bancario.</span></tr>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>FECHA</th>
+                                        <th>EMPRESA</th>
+                                        <th>VALOR</th>
+                                    </tr>
+                                </thead>
+                                <t t-foreach="o.debit_move_line_ids.filtered(lambda r: not r.cleared_bank_account)" t-as="lined">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="lined.date"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="lined.partner_id.name"/> - <t t-esc="lined.ref"/>
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <span t-field="lined.amount"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-foreach="o.credit_move_line_ids.filtered(lambda r: not r.cleared_bank_account)" t-as="linec">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="linec.date"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="linec.partner_id.name"/> - <t t-esc="linec.ref"/>
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <span t-field="linec.amount"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
