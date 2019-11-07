@@ -226,7 +226,6 @@ class BankAccRecStatement(models.Model):
                     (not line.cleared_bank_account) and 1.0 or 0.0
 
             statement.cleared_balance = float_round(
-                statement.starting_balance +
                 statement.sum_of_debits - statement.sum_of_credits,
                 account_precision)
             statement.cleared_balance_cur = float_round(
