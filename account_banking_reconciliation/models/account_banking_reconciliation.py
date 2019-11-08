@@ -133,7 +133,7 @@ class BankAccRecStatement(models.Model):
                 statement_line.move_line_id.write(
                     {
                         "cleared_bank_account": statement_line.cleared_bank_account,
-                        "bank_acc_rec_statement_id": statement_line.id,
+                        "bank_acc_rec_statement_id": statement_line.statement_id.id,
                     }
                 )
 
