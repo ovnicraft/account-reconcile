@@ -291,7 +291,6 @@ class BankAccRecStatement(models.Model):
     # refresh data
     @api.multi
     def refresh_record(self):
-        self.fix_rec_done()
         retval = True
         refdict = {}
 
