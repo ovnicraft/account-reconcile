@@ -291,6 +291,7 @@ class BankAccRecStatement(models.Model):
     # refresh data
     @api.multi
     def refresh_record(self):
+        self.fix_rec_done()
         retval = True
         refdict = {}
 
@@ -668,6 +669,15 @@ class BankAccRecStatement(models.Model):
             "The name of the statement must be unique per " "company and G/L account!",
         )
     ]
+
+    def fix_rec_done(self):
+        books = self.search([("state", "=", "done")])
+        for book in books:
+            lines = book.debit_move_line_ids.filtered(
+                lambda r: r.cleared_bank_account
+            ) + book.credit_move_line_ids.filtered(lambda r: r.cleared_bank_account)
+            mlines = lines.mapped("move_line_id")
+            mlines.write({"cleared_bank_account": True})
 
 
 class BankAccRecStatementLine(models.Model):
