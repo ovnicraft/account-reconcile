@@ -409,7 +409,7 @@ class BankAccRecStatement(models.Model):
 
                 ref = line.ref
                 if line.payment_id:
-                    ref += " CHEQUE: %s" % line.payment_id.check_number
+                    ref += " CHEQUE: %s" % (line.payment_id.check_number or "*")
                 res = {
                     "ref": ref,
                     "date": line.date,
