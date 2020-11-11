@@ -407,7 +407,7 @@ class BankAccRecStatement(models.Model):
                     or line.amount_currency
                 )
 
-                ref = line.ref
+                ref = line.ref or "**"
                 if line.payment_id:
                     ref += " CHEQUE: %s" % (line.payment_id.check_number or "*")
                 res = {
